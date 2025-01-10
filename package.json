@@ -19,6 +19,7 @@
     "googleapis": "^133.0.0",
     "helmet": "^8.0.0",
     "jsdom": "^22.1.0",
+    "node-cron": "^3.0.3",
     "sanitize-html": "^2.14.0"
   },
   "devDependencies": {

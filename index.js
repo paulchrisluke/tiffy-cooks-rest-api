@@ -7,6 +7,7 @@ const { body, validationResult } = require('express-validator');
 const sanitizeHtml = require('sanitize-html');
 require('dotenv').config();
 const { extractYoutubeVideoId, getEnhancedYoutubeData, generateVideoFromImages } = require('./utils/videoProcessor');
+const { processPostsForVideos, processedPosts } = require('./utils/backgroundTasks');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -592,6 +593,12 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    
+    // Start initial video processing
+    if (process.env.NODE_ENV === 'production') {
+        console.log('Starting initial video processing...');
+        processPostsForVideos();
+    }
 });
 
 // Health check endpoint
