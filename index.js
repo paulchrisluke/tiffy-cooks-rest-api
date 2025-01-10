@@ -580,15 +580,126 @@ app.get('/api/comments', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.json({
-        message: 'TiffyCooks Enhanced API',
-        endpoints: {
-            posts: '/api/posts',
-            pages: '/api/pages',
-            categories: '/api/categories',
-            comments: '/api/comments'
-        }
-    });
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>TiffyCooks Enhanced REST API</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+            <style>
+                body { max-width: 1200px; margin: 0 auto; padding: 20px; }
+                pre { background: #f4f4f4; padding: 15px; border-radius: 6px; overflow-x: auto; }
+                code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
+                .container { padding: 0 20px; }
+                h1, h2, h3 { margin-top: 30px; }
+                .endpoints { background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; }
+                .endpoint { margin-bottom: 15px; }
+                .badge {
+                    display: inline-block;
+                    padding: 3px 8px;
+                    border-radius: 12px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    margin-right: 8px;
+                }
+                .get { background: #e3f2fd; color: #1565c0; }
+            </style>
+        </head>
+        <body>
+            <main class="container">
+                <h1>TiffyCooks Enhanced REST API</h1>
+                <p>An enhanced REST API for TiffyCooks content that extends the WordPress REST API with additional features, media processing, and structured data.</p>
+
+                <h2>Features</h2>
+                
+                <h3>Enhanced Content</h3>
+                <ul>
+                    <li>Structured recipe data extraction</li>
+                    <li>Rich media content processing</li>
+                    <li>Automated video generation</li>
+                    <li>YouTube video metadata enhancement</li>
+                    <li>Category icons and metadata</li>
+                    <li>Author details enrichment</li>
+                </ul>
+
+                <h3>Media Processing</h3>
+                <ul>
+                    <li>Automatic TikTok-style video generation</li>
+                    <li>Blurred background for landscape images</li>
+                    <li>YouTube video metadata enhancement</li>
+                    <li>Image and video extraction from content</li>
+                    <li>Featured media optimization</li>
+                </ul>
+
+                <h3>Background Tasks</h3>
+                <ul>
+                    <li>Automated video generation every 4 hours</li>
+                    <li>Daily content synchronization</li>
+                    <li>Rate-limited processing</li>
+                    <li>Progress tracking for video generation</li>
+                    <li>Error handling and retry mechanisms</li>
+                </ul>
+
+                <h2>API Endpoints</h2>
+                <div class="endpoints">
+                    <div class="endpoint">
+                        <span class="badge get">GET</span>
+                        <code>/api/posts</code>
+                        <p>Fetch blog posts with enhanced media and recipe data</p>
+                    </div>
+                    <div class="endpoint">
+                        <span class="badge get">GET</span>
+                        <code>/api/categories</code>
+                        <p>Fetch categories with icons and metadata</p>
+                    </div>
+                    <div class="endpoint">
+                        <span class="badge get">GET</span>
+                        <code>/api/pages</code>
+                        <p>Fetch static pages with enhanced media</p>
+                    </div>
+                    <div class="endpoint">
+                        <span class="badge get">GET</span>
+                        <code>/api/comments</code>
+                        <p>Fetch post comments with author details</p>
+                    </div>
+                    <div class="endpoint">
+                        <span class="badge get">GET</span>
+                        <code>/api/docs</code>
+                        <p>View complete API documentation</p>
+                    </div>
+                </div>
+
+                <h2>Authentication</h2>
+                <p>Include the API key in the request headers:</p>
+                <pre><code>headers: {
+  'x-api-key': 'your_api_key'
+}</code></pre>
+
+                <h2>Rate Limiting</h2>
+                <ul>
+                    <li>100 requests per 15 minutes by default</li>
+                    <li>Configurable via environment variables</li>
+                    <li>Applies per IP address</li>
+                </ul>
+
+                <h2>Video Generation</h2>
+                <p>Videos are automatically generated for posts with images:</p>
+                <ul>
+                    <li>Vertical format (1080x1920)</li>
+                    <li>Blurred background for landscape images</li>
+                    <li>Transitions between images</li>
+                    <li>Generated every 4 hours for new content</li>
+                    <li>Stored in Vercel Blob storage</li>
+                </ul>
+
+                <footer>
+                    <p>Made with ❤️ by Paul Chris Luke</p>
+                </footer>
+            </main>
+        </body>
+        </html>
+    `);
 });
 
 app.listen(port, () => {
